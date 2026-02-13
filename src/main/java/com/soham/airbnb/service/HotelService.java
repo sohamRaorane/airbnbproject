@@ -1,4 +1,4 @@
 package com.soham.airbnb.service;
 
-public class HotelService {
+public interface HotelService {
 }
