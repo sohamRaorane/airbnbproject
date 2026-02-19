@@ -3,6 +3,7 @@ package com.soham.airbnb.serviceimpl;
 
 import com.soham.airbnb.entity.Hotel;
 import com.soham.airbnb.entity.User;
+import com.soham.airbnb.exception.ResoucreNotFoundException;
 import com.soham.airbnb.repository.HotelRepository;
 import com.soham.airbnb.repository.UserRepository;
 import com.soham.airbnb.service.HotelService;
@@ -19,7 +20,7 @@ public class HotelServiceImpl implements HotelService {
 
 
     public Hotel createHotel(Long ownerId, Hotel hotel){
-        User owner=userRepository.findById(ownerId).orElseThrow(() -> new RuntimeException("Owner Not Found "));
+        User owner=userRepository.findById(ownerId).orElseThrow(() -> new ResoucreNotFoundException("Owner Not Found "));
         hotel.setOwner(owner);
         return hotelRepository.save(hotel);
 

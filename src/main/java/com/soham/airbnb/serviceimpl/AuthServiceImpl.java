@@ -4,6 +4,8 @@ import com.soham.airbnb.dto.request.LoginRequest;
 import com.soham.airbnb.dto.request.SignUpRequest;
 import com.soham.airbnb.entity.Role;
 import com.soham.airbnb.entity.User;
+import com.soham.airbnb.exception.BadRequestException;
+import com.soham.airbnb.exception.ResoucreNotFoundException;
 import com.soham.airbnb.repository.RoleRepository;
 import com.soham.airbnb.repository.UserRepository;
 import com.soham.airbnb.service.AuthService;
@@ -27,10 +29,10 @@ public class AuthServiceImpl implements AuthService {
 
      public void register(SignUpRequest request){
          if(userRepository.existsByEmail(request.getEmail())){
-             throw new RuntimeException("Email already exists");
+             throw new BadRequestException("Email already exists");
          }
      Role userRole = roleRepository.findByName("ROLE_USER")
-             .orElseThrow(() -> new RuntimeException("Role Not found "));
+             .orElseThrow(() -> new ResoucreNotFoundException("Role Not found "));
 
      User user =new User();
      user.setName(request.getName);

@@ -2,6 +2,7 @@ package com.soham.airbnb.serviceimpl;
 
 import com.soham.airbnb.entity.Hotel;
 import com.soham.airbnb.entity.Room;
+import com.soham.airbnb.exception.ResoucreNotFoundException;
 import com.soham.airbnb.repository.HotelRepository;
 import com.soham.airbnb.repository.RoomRepository;
 import com.soham.airbnb.service.RoomService;
@@ -22,7 +23,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room addRoom(Long hotelId ,Room room){
         Hotel hotel =hotelRepository.findById(hotelId)
-                .orElseThrow(() ->new RuntimeException(("Hotel Not Found ")));
+                .orElseThrow(() ->new ResoucreNotFoundException(("Hotel Not Found ")));
         room.setHotel(hotel);
         return roomRepository.save(room);
 

@@ -4,6 +4,7 @@ package com.soham.airbnb.serviceimpl;
 import com.soham.airbnb.entity.Booking;
 import com.soham.airbnb.entity.BookingStatus;
 import com.soham.airbnb.entity.Payment;
+import com.soham.airbnb.exception.ResoucreNotFoundException;
 import com.soham.airbnb.repository.BookingRepository;
 import com.soham.airbnb.repository.PaymentRepository;
 import com.soham.airbnb.service.PaymentService;
@@ -21,7 +22,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment processPayment(Long bookingId ,Double amount){
         Booking booking =bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException("Booking Not found "));
+                .orElseThrow(() -> new ResoucreNotFoundException("Booking Not found "));
     Payment payment =new Payment ();
     payment.setBooking(booking );
     payment.setAmount(amount);
